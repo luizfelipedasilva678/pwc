@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contatos</title>
+
+    <style>
+      td {
+        color: blue;
+      }
+
+      tfoot {
+        background: lightblue;
+      }
+
+      .selecionado {
+        background-color: darksalmon;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Contatos</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Telefone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Paulo</td>
+          <td>232323</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Ana</td>
+          <td>232323</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Pedro</td>
+          <td>232323</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>3</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <p class="output"></p>
+
+    <script>
+      const $trs = Array.from(document.querySelectorAll("tr"));
+
+      $trs.forEach(($tr) => {
+        $tr.addEventListener("click", trocarCor);
+      });
+
+      function trocarCor(e) {
+        const CLASS = "selecionado";
+        const tr = e.target.parentNode;
+        const content = tr.innerText;
+
+        if (tr.classList.contains("selecionado")) {
+          document.querySelector(".output").innerText += content;
+        } else {
+          document.querySelector(".output").innerText += "";
+        }
+
+        tr.classList.toggle(CLASS);
+      }
+    </script>
+  </body>
+</html>

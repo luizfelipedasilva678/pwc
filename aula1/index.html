@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <nav></nav>
+    </header>
+
+    <!--
+    <p>Olá</p>
+    -->
+
+    <main>
+      <h1>Contato</h1>
+      <form action="destino.php" method="POST">
+        <label for="nome" accesskey="N">Nome</label>
+        <input type="text" name="nome" id="nome" />
+
+        <input type="number" name="numero" id="numero" />
+
+        <label for="sexo">Sexo</label>
+        <input type="radio" name="sexo" id="masculino" value="M" />
+        <input type="radio" name="sexo" id="feminino" value="F" />
+
+        <label for="trabalho">Trabalho</label>
+        <input type="checkbox" name="trabalho" id="trabalho" />
+
+        <label for="telefone" accesskey="T">Telefone</label>
+        <input type="text" name="telefone" id="telefone" />
+
+        <label for="cidade">Cidade</label>
+        <select name="cidade" id="cidade">
+          <option value="Friburgo">Friburgo</option>
+          <option value="Bom Jardim">Bom Jardim</option>
+          <option value="Cachoeiras de Macacu">Cachoeiras de Macacu</option>
+        </select>
+
+        <label for="observacoes">Observações</label>
+        <textarea
+          name="observacoes"
+          id="observacoes"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+
+      <!--
+        <article>
+          <section>Um</section>
+          <section>Dois</section>
+          <section>Três</section>
+        </article>
+  
+        <article>
+          <section>Um</section>
+          <section>Dois</section>
+          <section>Três</section>
+        </article>
+
+      -->
+    </main>
+
+    <footer></footer>
+
+    <script>
+      //const p = document.querySelector("p");
+
+      //p.style.background = "red";
+    </script>
+  </body>
+</html>
