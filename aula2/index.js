@@ -1,5 +1,5 @@
 (function (x, y) {
-  console.log(`Resultado ${x} elevado a ${y} = `, Math.pow(x, y));
+  console.log(`Resultado ${x}^${y} = `, Math.pow(x, y));
 })(2, 3);
 
 function sum() {
@@ -17,7 +17,7 @@ function sum() {
 function sum2() {
   var sum = 0;
 
-  var argumentos = Array.from(arguments);
+  var argumentos = arguments;
 
   for (var i in argumentos) {
     sum += argumentos[i];
@@ -29,7 +29,7 @@ function sum2() {
 function sum3() {
   var sum = 0;
 
-  var argumentos = Array.from(arguments);
+  var argumentos = arguments;
 
   for (var valor of argumentos) {
     sum += valor;
@@ -38,6 +38,6 @@ function sum3() {
   return sum;
 }
 
-console.log("Resultado funcao sem argumentos: ", sum(2, 3, 4));
-console.log("Resultado funcao2 sem argumentos: ", sum2(10, 20, 30));
-console.log("Resultado funcao3 sem argumentos: ", sum3(10, 20, 30));
+console.log("Resultado funcao sem argumentos: ", sum(2, 3, 4, 6));
+console.log("Resultado funcao2 sem argumentos: ", sum2(10, 20, 30, 100));
+console.log("Resultado funcao3 sem argumentos: ", sum3(10, 20, 30, 50));
