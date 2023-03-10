@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <label for="number">Adicione um número</label>
+      <input type="text" name="number" id="number" />
+      <button id="add-btn">Adicionar</button>
+    </div>
+
+    <div>Números: <span id="numeros">0</span></div>
+    <div>Média dos números: <span id="media">0</span></div>
+    <div>Soma dos números: <span id="sum">0</span></div>
+
+    <script>
+      (function () {
+        let numeros = [];
+        const addBtn = document.getElementById("add-btn");
+
+        addBtn.onclick = function () {
+          adicionaNumero();
+          imprimeNumeros();
+          imprimeMedia();
+          imprimeSoma();
+        };
+
+        function adicionaNumero() {
+          const numeroInput = document.getElementById("number");
+          const inputValue = numeroInput.value;
+          const numero = Number(inputValue);
+
+          if (inputValue === "" || isNaN(numero)) {
+            alert("Valor inválido");
+          } else {
+            numeros.push(numero);
+            numeroInput.value = "";
+          }
+        }
+
+        function imprimeNumeros() {
+          const output = document.getElementById("numeros");
+
+          if (numerosNaoEstaoVazios()) output.innerText = numeros.join("-");
+        }
+
+        function imprimeMedia() {
+          const output = document.getElementById("media");
+
+          if (numerosNaoEstaoVazios()) output.innerText = media();
+        }
+
+        function imprimeSoma() {
+          const output = document.getElementById("sum");
+
+          if (numerosNaoEstaoVazios()) output.innerText = soma();
+        }
+
+        function soma() {
+          let sum = 0;
+
+          numeros.forEach((numero) => {
+            sum += numero;
+          });
+
+          return sum;
+        }
+
+        function media() {
+          const sum = soma();
+
+          return sum / numeros.length;
+        }
+
+        function numerosNaoEstaoVazios() {
+          return numeros.length !== 0;
+        }
+      })();
+    </script>
+  </body>
+</html>
