@@ -11,6 +11,7 @@
       <label for="number">Adicione um número</label>
       <input type="text" name="number" id="number" />
       <button id="add-btn">Adicionar</button>
+      <button id="remove-btn">Remover</button>
     </div>
 
     <div>Números: <span id="numeros">0</span></div>
@@ -21,6 +22,7 @@
       (function () {
         let numeros = [];
         const addBtn = document.getElementById("add-btn");
+        const removeBtn = document.getElementById("remove-btn");
 
         addBtn.onclick = function () {
           adicionaNumero();
@@ -28,6 +30,33 @@
           imprimeMedia();
           imprimeSoma();
         };
+
+        removeBtn.onclick = function () {
+          removeNumero();
+          imprimeNumeros();
+          imprimeMedia();
+          imprimeSoma();
+        };
+
+        function removeNumero() {
+          const numeroInput = document.getElementById("number");
+          const inputValue = numeroInput.value;
+          const numero = Number(inputValue);
+          const elementoIdx = numeros.indexOf(numero);
+
+          if (inputValue === "" || isNaN(numero)) {
+            alert("Valor inválido");
+            return;
+          }
+
+          if (elementoIdx === -1) {
+            alert("Valor não encontrado");
+            return;
+          }
+
+          numeros.splice(elementoIdx, 1);
+          inputValue.value = "";
+        }
 
         function adicionaNumero() {
           const numeroInput = document.getElementById("number");
