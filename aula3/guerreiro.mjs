@@ -1,3 +1,7 @@
+import { ItemMagico } from "./itemMagico.mjs";
+
+var itemMagico = new ItemMagico(20, 5);
+
 function Guerreiro(energiaVal, manaVal) {
   var energia = energiaVal;
   var mana = manaVal;
@@ -47,6 +51,24 @@ function Guerreiro(energiaVal, manaVal) {
     }
   };
 
+  this.usarItemMagico = function (item) {
+    var requiredEnergy = item.getEnergiaAplicada();
+    var requiredMana = item.getManaAplicada();
+
+    if (energia < requiredEnergy || mana < requiredMana) return;
+
+    energia -= requiredEnergy;
+    mana -= requiredMana;
+
+    if (mana < 0) {
+      mana = 0;
+    }
+
+    if (energia < 0) {
+      energia = 0;
+    }
+  };
+
   this.morto = function () {
     if (this.getEnergia() === 0) {
       morto = true;
@@ -56,7 +78,7 @@ function Guerreiro(energiaVal, manaVal) {
   };
 }
 
-var guerreiro = new Guerreiro(100, 25);
+var guerreiro = new Guerreiro(100, 20);
 
 console.log(
   "Energia =>",
@@ -69,7 +91,14 @@ var dano = 100;
 guerreiro.sofrerDano(dano);
 console.log(`Sofreu ${dano} de dano`);
 
-guerreiro.adicionarEnergia(0);
+guerreiro.adicionarEnergia(34);
 
-console.log("Novo valor de energia", guerreiro.getEnergia());
+console.log(`Mana que o item precisa ${itemMagico.getManaAplicada()}`);
+console.log(`Energia que o item precisa ${itemMagico.getEnergiaAplicada()}`);
+
+guerreiro.usarItemMagico(itemMagico);
+
+console.log("Novo valor da mana =>", guerreiro.getMana());
+console.log("Novo valor de energia =>", guerreiro.getEnergia());
+
 console.log("Guerreiro morreu? ", guerreiro.morto() ? "Sim ⚰️" : "Não 😄");
