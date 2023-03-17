@@ -26,9 +26,8 @@ function jogar() {
         `Item da rodada ${i}`
       );
 
-      console.log(`Item a ser aplicado ${newItem.getNome()}`);
       console.log(
-        `O item vai ser aplicado ao guerreiro ${guerreiro.getNome()}`
+        `O ${newItem.getNome()} vai ser aplicado ao guerreiro ${guerreiro.getNome()}`
       );
 
       guerreiro.usarItemMagico(newItem);
