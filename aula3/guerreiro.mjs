@@ -1,11 +1,20 @@
 import { ItemMagico } from "./itemMagico.mjs";
 
-var itemMagico = new ItemMagico(20, 5);
+var itemMagico = new ItemMagico(-5, -20);
 
-function Guerreiro(energiaVal, manaVal) {
+export function Guerreiro(energiaVal, manaVal, nomeVal) {
   var energia = energiaVal;
   var mana = manaVal;
   var morto = false;
+  var nome = nomeVal;
+
+  this.setNome = function (nomeVal) {
+    nome = nomeVal;
+  };
+
+  this.getNome = function () {
+    return nome;
+  };
 
   this.getEnergia = function () {
     return energia;
@@ -57,8 +66,8 @@ function Guerreiro(energiaVal, manaVal) {
 
     if (energia < requiredEnergy || mana < requiredMana) return;
 
-    energia -= requiredEnergy;
-    mana -= requiredMana;
+    energia += requiredEnergy;
+    mana += requiredMana;
 
     if (mana < 0) {
       mana = 0;
@@ -78,9 +87,12 @@ function Guerreiro(energiaVal, manaVal) {
   };
 }
 
-var guerreiro = new Guerreiro(100, 20);
+var guerreiro = new Guerreiro(100, 20, "Guerreiro 1");
 
+/*
 console.log(
+  "Nome =>",
+  guerreiro.getNome(),
   "Energia =>",
   guerreiro.getEnergia(),
   "Mana =>",
@@ -102,3 +114,4 @@ console.log("Novo valor da mana =>", guerreiro.getMana());
 console.log("Novo valor de energia =>", guerreiro.getEnergia());
 
 console.log("Guerreiro morreu? ", guerreiro.morto() ? "Sim ⚰️" : "Não 😄");
+*/
