@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: solid 1px #393939;;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: gold;
+        }
+
+        td {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>Titulo 1</td>
+                <td>Titulo 2</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script> 
+        document.onclick = (e) => {
+            const target = e.target;
+
+            if (target.nodeName === 'TD') {
+                const tr = target.parentNode;
+                const trParent = tr.parentNode
+
+                if (trParent.nodeName === 'TBODY')
+                    tr.remove();
+            }
+        }
+    </script>
+</body>
+</html>

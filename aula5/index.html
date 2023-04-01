@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-32">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <output></output>
+    <p></p>
+    <script>
+        const contato = {
+            nome: 'Ana',
+            telefone: '22222', 
+            casada: true,
+            filhos: ['Maria', 'João'],
+            conjuge: {
+                nome: 'José',
+                telefone: '22222'
+            }
+        }
+
+        const contatoStr = JSON.stringify(contato);
+        const output = document.querySelector('output').innerText = contatoStr
+
+        if (output === null) {
+            alert('Elemento não encontrado');
+            return;
+        }
+        
+        document.querySelector('p').innerHTML = contato.filhos[0];
+
+    </script>
+</body>
+</html>

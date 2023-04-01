@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            cursor: pointer;
+        }
+
+        table {
+            border: solid 1px #393939;;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: gold;
+        }
+
+        td {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>Titulo 1</td>
+                <td>Titulo 2</td>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <button id="add-btn">Acrescentar</button>
+
+    <script> 
+        const tbody = document.querySelector('tbody');
+        const addBtn = document.querySelector('#add-btn');
+        const contatos = [];
+        const contato = {
+            nome: "Teste",
+            telefone: "2222222"
+        };
+
+        contatos.push(contato);
+        contatos.push(contato);
+        contatos.push(contato);
+        contatos.push(contato);
+        contatos.push(contato);
+        contatos.push(contato);
+        
+        addBtn.onclick = (e) => {
+            let html = '';
+
+            contatos.forEach(contato => {
+                html += `
+                    <tr>
+                        <td>${contato.nome}</td> 
+                        <td>${contato.telefone}</td>
+                    </tr>
+                `;
+            })
+
+            console.log(html)
+
+            tbody.innerHTML += `${html}`;
+        }
+
+    </script>
+</body>
+</html>
