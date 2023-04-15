@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .marked {
+        background: rgb(109, 176, 234);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tabela</h1>
+    <label for="pesquisa">Pesquisa: </label>
+    <input type="search" id="pesquisa" />
+    <button id="pesquisar">Pesquisar</button>
+    <button id="remover">Remover</button>
+
+    <script>
+      let contatos = [
+        { id: 1, nome: "Maria", telefone: "(22) 2222-2222" },
+        { id: 2, nome: "Pedro", telefone: "(22) 2222-2222" },
+        { id: 3, nome: "Joana", telefone: "(22) 2222-2222" },
+        { id: 4, nome: "Paulo", telefone: "(22) 2222-2222" },
+      ];
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      createThead(thead);
+      createTbody(tbody);
+      createTable(table, thead, tbody);
+      find(tbody);
+      removeElements(tbody);
+
+      function removeElements(tbody) {
+        const children = tbody.children;
+        const removeBtn = document.getElementById("remover");
+        let novosContatos = [];
+
+        removeBtn.addEventListener("click", () => {
+          if (children) {
+            Array.from(children).forEach((child) => {
+              if (!child.classList.contains("marked")) {
+                novosContatos.push({
+                  id: Number(child.children[0].innerText),
+                  nome: child.children[1].innerText,
+                  telefone: child.children[2].innerText,
+                });
+              }
+            });
+
+            contatos = novosContatos;
+            tbody.innerHTML = "";
+            createTbody(tbody);
+            novosContatos = [];
+          }
+        });
+      }
+
+      function cleanTable(tbody) {
+        if (tbody.children) {
+          Array.from(tbody.children).forEach((child) => {
+            if (child.classList.contains("marked")) {
+              child.classList.remove("marked");
+            }
+          });
+        }
+      }
+
+      function find(tbody) {
+        const btn = document.getElementById("pesquisar");
+        const input = document.getElementById("pesquisa");
+
+        btn.addEventListener("click", () => {
+          const inputValue = input.value.toLocaleLowerCase();
+          cleanTable(tbody);
+
+          if (!inputValue) {
+            alert("Digite um valor antes de pesquisar");
+            return;
+          }
+
+          contatos.forEach((contato, index) => {
+            if (contato.nome.toLocaleLowerCase().includes(inputValue)) {
+              if (tbody.children[index]) {
+                tbody.children[index].classList.add("marked");
+              }
+            }
+          });
+        });
+      }
+
+      function createTable(table, thead, tbody) {
+        table.append(thead, tbody);
+        document.body.appendChild(table);
+      }
+
+      function createThead(thead) {
+        const tr = document.createElement("tr");
+        Object.keys(contatos[0]).forEach((label) => {
+          const th = document.createElement("th");
+          const textNode = document.createTextNode(label.toUpperCase());
+          th.appendChild(textNode);
+          tr.appendChild(th);
+        });
+        thead.appendChild(tr);
+      }
+
+      function createTbody(tbody) {
+        contatos.forEach((contato) => {
+          const tr = document.createElement("tr");
+
+          const tdId = document.createElement("td");
+          const tdNome = document.createElement("td");
+          const tdTelefone = document.createElement("td");
+
+          const idText = document.createTextNode(contato.id);
+          const nameText = document.createTextNode(contato.nome);
+          const telText = document.createTextNode(contato.telefone);
+
+          tdId.appendChild(idText);
+          tdNome.appendChild(nameText);
+          tdTelefone.appendChild(telText);
+
+          tr.append(tdId, tdNome, tdTelefone);
+          tbody.appendChild(tr);
+        });
+      }
+    </script>
+  </body>
+</html>
