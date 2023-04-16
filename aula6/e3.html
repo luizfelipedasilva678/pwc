@@ -9,6 +9,10 @@
       .marked {
         background: rgb(109, 176, 234);
       }
+
+      tbody tr {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -36,6 +40,7 @@
         { id: 3, nome: "Joana", telefone: "(22) 2222-2222" },
         { id: 4, nome: "Paulo", telefone: "(22) 2222-2222" },
       ];
+      let lastId = 4;
 
       const table = document.createElement("table");
       const thead = document.createElement("thead");
@@ -63,8 +68,9 @@
             return;
           }
 
+          lastId += 1;
           contatos.push({
-            id: Math.floor(Math.random() * 500),
+            id: lastId,
             nome: nomeInput.value,
             telefone: telefoneInput.value,
           });
