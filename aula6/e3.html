@@ -13,10 +13,21 @@
   </head>
   <body>
     <h1>Tabela</h1>
-    <label for="pesquisa">Pesquisa: </label>
-    <input type="search" id="pesquisa" />
-    <button id="pesquisar">Pesquisar</button>
-    <button id="remover">Remover</button>
+    <div>
+      <label for="pesquisa">Pesquisa: </label>
+      <input type="search" id="pesquisa" />
+      <button id="pesquisar">Pesquisar</button>
+      <button id="remover">Remover</button>
+    </div>
+    <div>
+      <form action="#" id="novo-contato-form">
+        <label for="nome" id="nome">Nome: </label>
+        <input type="text" id="nome" placeholder="Digite seu nome" />
+        <label for="telefone" id="telefone">Telefone: </label>
+        <input type="tel" id="telefone" placeholder="Digite seu telefone" />
+        <button>Adicionar</button>
+      </form>
+    </div>
 
     <script>
       let contatos = [
@@ -35,6 +46,43 @@
       createTable(table, thead, tbody);
       find(tbody);
       removeElements(tbody);
+      selectByClick(tbody);
+      adicionarNovoContato(tbody);
+
+      function adicionarNovoContato() {
+        const form = document.getElementById("novo-contato-form");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const nomeInput = form.nome;
+          const telefoneInput = form.telefone;
+
+          if (!nomeInput.value || !telefoneInput.value) {
+            alert("Insira valores nos 2 inputs");
+            return;
+          }
+
+          contatos.push({
+            id: Math.floor(Math.random() * 500),
+            nome: nomeInput.value,
+            telefone: telefoneInput.value,
+          });
+
+          tbody.innerHTML = "";
+          createTbody(tbody);
+        });
+      }
+
+      function selectByClick(tbody) {
+        tbody.addEventListener("click", (e) => {
+          const target = e.target;
+
+          if (target.nodeName === "TD") {
+            target.parentNode.classList.toggle("marked");
+          }
+        });
+      }
 
       function removeElements(tbody) {
         const children = tbody.children;
