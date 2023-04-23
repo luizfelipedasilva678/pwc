@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .mark {
+        background: rgb(98, 98, 231);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Contato</h1>
+    <form id="products-form">
+      <label for="descricao">Descrição:</label>
+      <input type="text" id="descricao" />
+      <label for="estoque">Estoque:</label>
+      <input type="number" id="estoque" />
+      <button id="save">Salvar</button>
+    </form>
+
+    <button id="remove">Remover</button>
+
+    <script>
+      const form = document.getElementById("products-form");
+      const produtos = JSON.parse(localStorage.getItem("produtos")) ?? [];
+      const removeBtn = document.getElementById("remove");
+      const { tbody, tfoot } = drawTable();
+
+      function updateTfoot() {
+        let sum = 0;
+
+        produtos.forEach((produto) => {
+          sum += Number(produto.estoque);
+        });
+
+        console.log();
+
+        tfoot.children[0].children[1].innerText = sum;
+      }
+
+      function updateTbody(produto = null) {
+        if (produto) {
+          const tr = document.createElement("tr");
+          const td1 = document.createElement("td");
+          const td2 = document.createElement("td");
+
+          td1.innerText = produto.descricao;
+          td2.innerText = produto.estoque;
+
+          tr.append(td1, td2);
+
+          tbody.appendChild(tr);
+        } else {
+          if (produtos) {
+            tbody.innerHTML = "";
+
+            produtos.forEach((produto) => {
+              const tr = document.createElement("tr");
+              const td1 = document.createElement("td");
+              const td2 = document.createElement("td");
+
+              td1.innerText = produto.descricao;
+              td2.innerText = produto.estoque;
+
+              tr.append(td1, td2);
+
+              tbody.appendChild(tr);
+            });
+          }
+        }
+      }
+
+      function drawTfoot() {
+        const tfoot = document.createElement("tfoot");
+        let sum = 0;
+
+        produtos.forEach((produto) => {
+          sum += Number(produto.estoque);
+        });
+
+        const tr = document.createElement("tr");
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+
+        td1.innerText = "Total em estoque";
+        td2.innerText = sum;
+        tr.append(td1, td2);
+
+        tfoot.append(tr);
+
+        return tfoot;
+      }
+
+      function drawTbody() {
+        const tbody = document.createElement("tbody");
+
+        if (produtos) {
+          produtos.forEach((produto) => {
+            const tr = document.createElement("tr");
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+
+            td1.innerText = produto.descricao;
+            td2.innerText = produto.estoque;
+
+            tr.append(td1, td2);
+
+            tbody.appendChild(tr);
+          });
+        }
+
+        return tbody;
+      }
+
+      function drawThead() {
+        const thead = document.createElement("thead");
+        const tr = document.createElement("tr");
+        const th1 = document.createElement("th");
+        const th2 = document.createElement("th");
+
+        th1.innerText = "Descrição";
+        th2.innerText = "Estoque";
+
+        tr.appendChild(th1);
+        tr.appendChild(th2);
+
+        thead.append(tr);
+
+        return thead;
+      }
+
+      function drawTable() {
+        const table = document.createElement("table");
+        const thead = drawThead();
+        const tbody = drawTbody();
+        const tfoot = drawTfoot();
+
+        table.append(thead, tbody, tfoot);
+        document.body.appendChild(table);
+
+        return {
+          tbody,
+          tfoot,
+          thead,
+        };
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const { target } = e;
+
+        const { value: valorDescricao } = target.descricao;
+        const { value: valorEstoque } = target.estoque;
+        const produto = { descricao: valorDescricao, estoque: valorEstoque };
+
+        if (!produtos) {
+          localStorage.setItem("produtos", JSON.stringify([produto]));
+        } else {
+          produtos.push(produto);
+          updateTbody(produto);
+          updateTfoot();
+          localStorage.setItem("produtos", JSON.stringify(produtos));
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (e.target.nodeName === "TD") {
+          const parentNode = e.target.parentNode;
+          const tbodyChildren = Array.from(tbody.children);
+
+          if (parentNode.parentNode.nodeName !== "TFOOT") {
+            tbodyChildren.forEach((child) => {
+              if (child.classList.contains("mark")) {
+                child.classList.remove("mark");
+              }
+            });
+
+            parentNode.classList.add("mark");
+          }
+        }
+      });
+
+      removeBtn.addEventListener("click", (e) => {
+        const tr = document.querySelector(".mark");
+
+        if (tr) {
+          const produtoParaRemover = {
+            descricao: tr.children[0].innerText,
+            estoque: tr.children[1].innerText,
+          };
+
+          const idx = produtos.findIndex(
+            (produto) =>
+              produto.descricao === produtoParaRemover.descricao &&
+              produto.estoque === produtoParaRemover.estoque
+          );
+
+          produtos.splice(idx, 1);
+
+          localStorage.setItem("produtos", JSON.stringify(produtos));
+          updateTbody();
+          updateTfoot();
+        }
+      });
+    </script>
+  </body>
+</html>
