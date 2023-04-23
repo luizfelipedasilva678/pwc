@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Contato</h1>
+    <form id="contato-form">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" />
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" />
+      <button id="ok">Ok</button>
+    </form>
+
+    <script>
+      const nome = document.getElementById("nome");
+      const telefone = document.getElementById("telefone");
+      const form = document.getElementById("contato-form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const { target } = e;
+
+        const nomeInput = target.nome;
+        const telefoneInput = target.telefone;
+
+        localStorage.setItem(
+          "contato",
+          JSON.stringify({
+            nome: nomeInput.value,
+            telefone: telefoneInput.value,
+          })
+        );
+      });
+
+      function aoTrocarFoco(event) {
+        event.target.style.backgroundColor =
+          event.type === "focus" ? "gold" : "white";
+      }
+
+      nome.addEventListener("focus", aoTrocarFoco);
+      telefone.addEventListener("focus", aoTrocarFoco);
+      nome.addEventListener("blur", aoTrocarFoco);
+      telefone.addEventListener("blur", aoTrocarFoco);
+    </script>
+  </body>
+</html>
