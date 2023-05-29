@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Operações</title>
+  </head>
+  <body>
+    <label for="n1">Número 1</label>
+    <input type="text" name="n1" id="n1" />
+    <label for="n2">Número 2</label>
+    <input type="text" name="n2" id="n2" />
+    <select name="operacao" id="operacao">
+      <option value="+">Soma</option>
+      <option value="-">Subtracao</option>
+      <option value="*">Multiplicação</option>
+      <option value="/">Divisão</option>
+      <option value="/d">Divisão</option>
+    </select>
+    <button id="calcular">Calcular</button>
+
+    <output id="resultado"></output>
+    <script>
+      const btn = document.getElementById("calcular");
+
+      function realizaOperacao(n1, n2, operacao) {
+        return new Promise((resolve, reject) => {
+          if (operacao === "+") {
+            resolve(n1 + n2);
+          }
+
+          if (operacao === "-") {
+            resolve(n1 - n2);
+          }
+
+          if (operacao === "*") {
+            resolve(n1 * n2);
+          }
+
+          if (operacao === "/") {
+            resolve(n1 / n2);
+          }
+
+          reject(new Error("Operação não suportada"));
+        });
+      }
+
+      btn.addEventListener("click", () => {
+        const n1 = document.getElementById("n1").value;
+        const n2 = document.getElementById("n2").value;
+        const operacao = document.getElementById("operacao").value;
+
+        realizaOperacao(Number(n1), Number(n2), operacao)
+          .then((resultado) => {
+            document.getElementById("resultado").innerText =
+              "Resultado " + resultado;
+          })
+          .catch((e) => {
+            document.getElementById("resultado").innerText = e.message;
+          });
+      });
+    </script>
+  </body>
+</html>
