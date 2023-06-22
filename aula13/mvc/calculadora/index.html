@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./index.js" type="module"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form-operacoes">
+      <label for="operacoes">Número 1: </label>
+      <input type="text" name="n1" id="n1" />
+      <label for="operacoes">Número 2: </label>
+      <input type="text" name="n2" id="n2" />
+      <label for="operacoes">Opeção: </label>
+      <select name="operacao" id="operacao">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <button id="calcular" type="submit">Calcular</button>
+    </form>
+    <output id="resultado"></output>
+  </body>
+</html>
