@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        margin-top: 16px;
+      }
+    </style>
+    <script src="index.js" defer type="module"></script>
+  </head>
+  <body>
+    <label for="descricao">Descrição</label>
+    <input
+      type="text"
+      id="descricao"
+      name="descricao"
+      placeholder="Descrição da tarefa"
+    />
+    <label for="terminou">Terminou a tarefa</label>
+    <input type="checkbox" id="terminou" name="terminou" />
+    <button id="add-task-btn">Adicionar</button>
+    <button id="edit-task-btn" style="display: none">Editar</button>
+    <button id="cancel-edition-btn" style="display: none">Cacelar</button>
+
+    <table>
+      <caption>
+        Suas Tarefas
+      </caption>
+      <thead>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Terminou</th>
+      </thead>
+      <tbody id="tasks-list"></tbody>
+    </table>
+  </body>
+</html>
