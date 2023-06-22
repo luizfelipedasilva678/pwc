@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="nome">Nome: </label>
+    <input type="text" id="nome" name="nome" />
+    <label for="preco">Preço: </label>
+    <input type="number" id="preco" name="preco" />
+    <label for="idField">Id: </label>
+    <input type="number" id="idField" name="idField" />
+    <button id="enviar">Enviar</button>
+    <button id="atualizar">Atualizar</button>
+
+    <table>
+      <thead>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Preco</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      async function montarTabela() {
+        const resposta = await fetch("http://localhost:8080/produtos");
+        const { produtos } = await resposta.json();
+        const tbody = document.querySelector("tbody");
+
+        const html = produtos
+          .map(
+            (produto) =>
+              `<tr>
+                <td>${produto.id}</td>
+                <td>${produto.nome}</td>
+                <td>${produto.preco}</td>
+                <td>
+                    <button onclick=deletar(${produto.id})>Deletar</button>    
+                </td>
+            </tr>`
+          )
+          .join("");
+
+        tbody.innerHTML = html;
+      }
+
+      async function cadastrar() {
+        const btn = document.getElementById("enviar");
+
+        btn.addEventListener("click", async (e) => {
+          const body = {
+            nome: document.getElementById("nome").value,
+            preco: document.getElementById("preco").value,
+          };
+
+          try {
+            await fetch("http://localhost:8080/produtos", {
+              method: "POST",
+              body: JSON.stringify(body),
+            });
+          } catch (error) {
+            console.error(error.message);
+          }
+        });
+      }
+
+      async function atualizar() {
+        const btn = document.getElementById("atualizar");
+
+        btn.addEventListener("click", async (e) => {
+          const body = {
+            nome: document.getElementById("nome").value,
+            preco: document.getElementById("preco").value,
+          };
+
+          try {
+            await fetch(
+              `http://localhost:8080/produtos/${
+                document.getElementById("idField").value
+              }`,
+              {
+                method: "PUT",
+                body: JSON.stringify(body),
+              }
+            );
+          } catch (error) {
+            console.error(error.message);
+          }
+        });
+      }
+
+      async function deletar(id) {
+        await fetch(`http://localhost:8080/produtos/${id}`, {
+          method: "DELETE",
+        });
+      }
+
+      montarTabela();
+      cadastrar();
+      atualizar();
+    </script>
+  </body>
+</html>
